@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %} Edit Task {% endblock title %}
+{%block body_content%}
+{%if user.is_authenticated %}
+<div class="pull-right">
+<a href='/logout/'><strong>Logout</strong></a>
+</div>
+{%endif%}
+<h1>Edit Task here</h1>
+<div class="container center_div">
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+{%endblock body_content%}

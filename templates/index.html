@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %} Todo list {% endblock title %}
+{%block body_content%}
+<div class="pull-right">
+    <a href='/logout/'><strong>Logout</strong></a>
+</div>
+<h1>Todo List</h1>
+<a href="/todo/">Create Task here</a><br><br>
+{%if user.is_authenticated %}
+
+{%endif%}
+<div class="row text-center">
+    <form method="get" action="/todo_filter/" class="form-inline">
+        Enter date to Filter task<input type="date" name="date" value="date">
+            <div class="radio">
+                <label><input type="radio" name="type" value="day_wise">day_wise</label>
+            </div>
+        <div class="radio">
+            <label><input type="radio" name="type" value="week">week</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="type" value="month">month</label>
+        </div>
+        <input type="submit" value="Submit" />
+    </form>
+    {% for item in todo %}
+    <div class="col-sm-4 ">
+        <div class="thumbnail {{item.state_task}}" style="">
+            <a href="{%url 'todo:update' id=item.id%}">Edit task</a>
+            <p><strong>name :{{item.name}}</strong></p>
+            <p>Description :{{item.description}}</p>
+            <p>Priority :{{item.priority}}</p>
+            <p class="{{item.state_task}}">State of task :{{item.state_task}}</p>
+            <p>Due Date: {{item.due_date}}</p>
+        </div>
+    </div>
+    {%endfor%}
+    </div>
+
+{%endblock body_content%}
